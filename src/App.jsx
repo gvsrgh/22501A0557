@@ -1,42 +1,31 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import UrlShortener from './components/UrlShortener';
-import Statistics from './components/Statistics';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import './App.css';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { Container } from '@mui/material';
-
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
+import Header from './components/Header.jsx'
+import Footer from './components/Footer.jsx'
+import Statistics from './components/Statistics.jsx'
+import UrlShortener from './components/UrlShortner.jsx'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Container } from '@mui/material'
+import { makeStyles } from '@mui/styles'
+const useStyles = makeStyles((theme) => ({
+  container: {
+    marginTop: theme.spacing(4),
   },
-});
+}))
+const App = () => {
+  const classes = useStyles()
 
-function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Router>
-        <Header />
-        <Container maxWidth="md">
-          <Switch>
-            <Route path="/" exact component={UrlShortener} />
-            <Route path="/statistics" component={Statistics} />
-          </Switch>
-        </Container>
-        <Footer />
-      </Router>
-    </ThemeProvider>
-  );
+    <Router>
+      <Header />
+      <Container className={classes.container}>
+        <Routes>
+          <Route path="/" element={<UrlShortener />} />
+          <Route path="/statistics" element={<Statistics />} />
+        </Routes>
+      </Container>
+      <Footer />
+    </Router>
+  )
 }
 
-export default App;
+
+export default App

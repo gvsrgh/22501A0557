@@ -59,13 +59,16 @@ const UrlShortener = () => {
     } finally {
       setLoading(false);
     }
+    setLongUrl('');
+    setShortCode('');
+    setValidity(60);
   }
   return (
     <Container className={classes.root}>
-      <Paper elevation={3} className={classes.form}>
-        <Typography variant="h4" gutterBottom>
-          URL Shortener
-        </Typography>
+      <Typography variant="h4" gutterBottom>
+        URL Shortener
+      </Typography>
+      <Paper className={classes.form}>
         <form onSubmit={handleSubmit}>
           <TextField
             label="Long URL"
@@ -82,7 +85,6 @@ const UrlShortener = () => {
             fullWidth
             value={validity}
             onChange={(e) => setValidity(e.target.value)}
-            required
           />
           <TextField
             label="Custom Short Code (optional)"
@@ -101,22 +103,15 @@ const UrlShortener = () => {
             {loading ? 'Shortening...' : 'Shorten URL'}
           </Button>
         </form>
-        {error && <Typography color="error">{error}</Typography>}
       </Paper>
+      {error && <Typography color="error">{error}</Typography>}
       {shortenedUrl && (
-        <Paper elevation={3} className={classes.result}>
-          <Typography variant="h6">Shortened URL:</Typography>
-          <Typography variant="body1">{shortenedUrl}</Typography>
-          <Typography variant="body2">Expiry Date: {expiryDate}</Typography>
+        <Paper className={classes.result}>
+          <Typography variant="h6">Shortened URL: {shortenedUrl}</Typography>
+          <Typography>Expiry Date: {expiryDate}</Typography>
         </Paper>
       )}
     </Container>
   );
 }
-
 export default UrlShortener;
-/*******
- * This code defines a simple URL Shortener component using React and Material-UI.
- * It includes a form for users to input a long URL, specify validity in minutes, and optionally provide a custom shortcode.
- * Upon submission, it simulates an API call to generate a shortened URL and displays the result along with the expiry date.
- */
